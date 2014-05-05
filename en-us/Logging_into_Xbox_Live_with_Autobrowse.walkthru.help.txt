@@ -1,0 +1,10 @@
+# Autobrowse can make automatically logging into a site simple and easy.  
+# This simple pipeline logs someone into xbox (assuming $liveId and $password are set)
+$ie = Open-Browser -Url http://xbox.com -Visible|
+    Invoke-BrowserControl -Name RpsSignInLink -Click |
+    Set-BrowserControl -Name login -Value $liveId | 
+    Set-BrowserControl -Name passwd -Value $password | 
+    Invoke-BrowserControl -Name SI -Click 
+
+# Once we're in, let's check out recent activity    
+$ie | Set-BrowserLocation -Url http://live.xbox.com/en-US/Activity
